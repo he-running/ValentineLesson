@@ -28,7 +28,7 @@ ol, ul, li {
     position: relative;
 }
 
-li:nth-child(2) {
+/*li:nth-child(2) {
     background: #9bcd9b;
 }
 
@@ -40,7 +40,7 @@ a {
     position: absolute;
     top: 50%;
     left: 40%;
-}
+}*/
 
 button {
     width: 100px;
@@ -54,7 +54,7 @@ button {
 
 /*div.boy是该背景图的容器，所以position取负值*/
 .charactor {
-    left: 6%;
+    left: 0%;
     top: 55%;
     position: absolute;
     /* width: 100%;
