@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Valentine</title>
+    <link rel="stylesheet" href="frame/bootstrap-3.3.7/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/pageA.css">
 </head>
 <body>
 
-    <div id="content">
+    <div id="content" class="container">
         <ul class="content-wrap">
             <!--第一幅画面-->
             <li>
@@ -24,16 +25,19 @@
             <li>页面3</li>
         </ul>
 
-        <div id="boy" class="charactor slowWalk"></div>
+        <div id="boy" class="charactor"></div>
 
         <div class="button">
-            <button>开始走路</button>
+            <button class="btn-primary">开始</button>
+            <button class="btn-info">暂停</button>
+            <button class="btn-default">恢复</button>
         </div>
     </div>
 
 </body>
 <script src="frame/jquery-3.3.1.js"></script>
 <script src="frame/jquery.transit.js"></script>
+<script src="frame/bootstrap-3.3.7/bootstrap.min.js"></script>
 <script src="js/interface/swipe.js"></script>
 <script src="js/index.js"></script>
 </html>

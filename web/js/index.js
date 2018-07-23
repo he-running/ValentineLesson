@@ -36,10 +36,33 @@ $boy.css({
 
 /*结合精灵动画和transition可以实现走路动态
 *通过引入jquery.transit的封装实现transition渐变的方式让人物走动*/
-$('button').click(function () {
-   $boy.transition({
-       'left':$('#content').width() + 'px'
-   },10000,'linear',function () {});
+// $('button').click(function () {
+//    $boy.transition({
+//        'left':$('#content').width() + 'px'
+//    },10000,'linear',function () {});
+// });
+
+/*添加暂停功能*/
+$('button:first').click(function () {
+    $boy.addClass('slowWalk').transition({
+        'left':$('#content').width() + 'px'
+    },10000);
+});
+//暂停
+$('button:nth-child(2)').click(function () {
+    // 强制做了一个改变目标left的处理
+    // 动画是要运行10秒,所以此时动画还是没有结束的
+    var currentLeft = $boy.css('left');
+    $boy.css('left',currentLeft);
+    $boy.removeClass('recoverWalk');
+    $boy.addClass('pauseWalk');
 });
 
-
+//恢复
+$('button:last').click(function () {
+    $boy.removeClass('pauseWalk');
+    $boy.addClass('slowWalk').transition({
+        'left':$('#content').width() + 'px'
+    },10000);
+    $boy.addClass('recoverWalk');
+});

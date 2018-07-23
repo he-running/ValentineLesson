@@ -117,3 +117,13 @@ button {
         background-position: -0px -291px;
     }
 }
+
+.pauseWalk {
+    -moz-animation-play-state: paused;
+    -webkit-animation-play-state: paused;
+}
+
+.recoverWalk {
+    -moz-animation-play-state: running;
+    -webkit-animation-play-state: running;
+}
