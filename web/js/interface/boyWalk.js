@@ -98,6 +98,7 @@ function boyWalk() {
         restoreWalk();
         //运动的属性
         $boy.transition(options, runTime, 'linear', function () {
+            console.log('动画完成，通知执行下一步');
             dfdPlay.resolve();//动画完成
         });
         return dfdPlay;
