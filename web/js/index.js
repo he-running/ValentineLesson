@@ -23,6 +23,10 @@ $('button:first').click(function () {
     //太阳公转
     $("#sun").addClass('rotation');
 
+    //云飘
+    $('.cloud:first').addClass('cloud1Anim');
+    $('.cloud:last').addClass('cloud2Anim');
+
     //第一次走路
     boy.walkTo(2000, 0.2)
         .then(function () {

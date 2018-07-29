@@ -128,6 +128,7 @@ button {
     -webkit-animation-play-state: running;
 }
 
+/*太阳*/
 #sun {
     background: url("http://img.mukewang.com/55ade004000106c202010201.png") no-repeat;
     position: absolute;
@@ -140,9 +141,9 @@ button {
 
 .rotation {
     -webkit-animation-name: rotation;
-    -webkit-animation-duration: 20s;
+    -webkit-animation-duration: 30s;
     -moz-animation-name: rotation;
-    -moz-animation-duration: 20s;
+    -moz-animation-duration: 30s;
 }
 
 @-webkit-keyframes rotation {
@@ -164,8 +165,12 @@ button {
 }
 
 /*天空云*/
+.cloudArea {
+    position: relative;
+}
+
 .cloud {
-    z-index: 2;
+    z-index: 1000;
     position: absolute;//相对于第一个非static的父元素定位
 }
 
@@ -177,3 +182,65 @@ button {
     background: url("http://img.mukewang.com/55addfde0001aec501810101.png");
 }
 
+.cloud2 {
+    width: 301px;
+    height: 140px;
+    right: -5%;
+    background: url("http://img.mukewang.com/55addff500016df503010140.png");
+}
+
+.cloud1Anim {
+    -webkit-animation-name: smallCloud;
+    -webkit-animation-duration: 20s;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: smallCloud;
+    -moz-animation-duration: 20s;
+    -moz-animation-iteration-count: infinite;
+}
+
+.cloud2Anim {
+    -webkit-animation-name: largeCloud;
+    -webkit-animation-duration: 40s;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: largeCloud;
+    -moz-transition-duration: 40s;
+    -moz-animation-iteration-count: infinite;
+}
+
+@-webkit-keyframes smallCloud {
+    0% {
+        left: -5%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@-moz-keyframes smallCloud {
+    0% {
+        left: -5%;
+    }
+    100% {
+        left: 100%;
+    }
+}
+
+@-webkit-keyframes largeCloud {
+    0% {
+        right: -5%;
+    }
+    100% {
+        right: 100%;
+    }
+}
+
+@-moz-keyframes largeCloud {
+    0% {
+        right: -5%;
+    }
+    100% {
+        right: 100%;
+    }
+}
