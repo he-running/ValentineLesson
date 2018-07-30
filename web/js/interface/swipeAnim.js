@@ -2,7 +2,7 @@
  * Created by He on 2018/7/22.
  * 滑动对象封装，对外暴露了scrollTo接口
  */
-function swipe(container) {
+function swipeAnim(container) {
     //滑动对象
     var swipe = {};
 

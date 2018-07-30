@@ -5,7 +5,7 @@
 var container = $('#content');
 
 //初始化滑行动画
-var swipe = swipe(container);
+var swipe = swipeAnim(container);
 
 // 页面滚动到指定的位置
 function scrollTo(time, proportion) {
