@@ -15,48 +15,48 @@ function scrollTo(time, proportion) {
 
 
 /**********动画处理***********/
-swipe.scrollTo(container.width(),0);
+swipe.scrollTo(container.width(), 0);
 
 var boy = boyWalk();//男孩走路
 
 //开始
 /*
-$('button:first').click(function () {
+ $('button:first').click(function () {
 
-    //太阳公转
-    $("#sun").addClass('rotation');
+ //太阳公转
+ $("#sun").addClass('rotation');
 
-    //云飘
-    $('.cloud:first').addClass('cloud1Anim');
-    $('.cloud:last').addClass('cloud2Anim');
+ //云飘
+ $('.cloud:first').addClass('cloud1Anim');
+ $('.cloud:last').addClass('cloud2Anim');
 
-    //第一次走路
-    boy.walkTo(2000, 0.2)
-        .then(function () {
-            //第一次完成
-            boy.setColor('red');
-            console.log('第1次完成:' + new Date());
-            scrollTo(5000, 1);
-        })
-        //第二次走路
-        .then(function () {
-            return boy.walkTo(4000, 0.4);
-        })
-        .then(function () {
-            //第二次完成
-            boy.setColor('yellow');
-            console.log('第2次完成:' + new Date());
-        });
-        // //第三次走路
-        // .then(function () {
-        //     return boy.walkTo(2000, 0.6);
-        // })
-        // .then(function () {
-        //     //第三次完成
-        //     boy.setColor('blue');
-        //     console.log('第3次完成:' + new Date());
-        // });
-});*/
+ //第一次走路
+ boy.walkTo(2000, 0.2)
+ .then(function () {
+ //第一次完成
+ boy.setColor('red');
+ console.log('第1次完成:' + new Date());
+ scrollTo(5000, 1);
+ })
+ //第二次走路
+ .then(function () {
+ return boy.walkTo(4000, 0.4);
+ })
+ .then(function () {
+ //第二次完成
+ boy.setColor('yellow');
+ console.log('第2次完成:' + new Date());
+ });
+ // //第三次走路
+ // .then(function () {
+ //     return boy.walkTo(2000, 0.6);
+ // })
+ // .then(function () {
+ //     //第三次完成
+ //     boy.setColor('blue');
+ //     console.log('第3次完成:' + new Date());
+ // });
+ });*/
 
 /*商店门动画*/
 function doorAction(left, right, time) {
@@ -68,11 +68,11 @@ function doorAction(left, right, time) {
     //等待开门完成
     var complete = function () {
         if (count == 1) {
-            console.log('complete: '+count);
+            console.log('complete: ' + count);
             defer.resolve();
             return;
         }
-        console.log('disComplete: '+count);
+        console.log('disComplete: ' + count);
         count--;
     };
 
@@ -109,22 +109,34 @@ var lamp = {
 };
 
 /*
-$('button:first').click(function () {
-    //开门开灯
-    openDoor().then(function () {
-        lamp.bright();
-    });
-});
+ $('button:first').click(function () {
+ //开门开灯
+ openDoor().then(function () {
+ lamp.bright();
+ });
+ });
 
-$('button:last').click(function () {
-    //关门关灯
-    closeDoor().then(function () {
-        lamp.dark();
-    });
-});*/
+ $('button:last').click(function () {
+ //关门关灯
+ closeDoor().then(function () {
+ lamp.dark();
+ });
+ });*/
+
+/*飞鸟*/
+var bird = {
+    elem: $('.bird'),
+    fly: function () {
+        this.elem.addClass('birdFly');
+        this.elem.transition({
+            right: container.width()
+        }, 15000,'linear');
+    }
+};
+
 
 var startRun = function startRun() {
-    boy.walkTo(2000,0.5)
+    boy.walkTo(2000, 0.5)
         .then(function () {
             //暂停走路
             boy.stopWalk();
@@ -144,6 +156,10 @@ var startRun = function startRun() {
         .then(function () {
             //取花
             return boy.takeFlower();
+        })
+        .then(function () {
+            //飞鸟
+            bird.fly();
         })
         .then(function () {
             //出商店
