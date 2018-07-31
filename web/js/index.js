@@ -142,6 +142,10 @@ var startRun = function startRun() {
             return boy.toShop(2000);
         })
         .then(function () {
+            //取花
+            return boy.takeFlower();
+        })
+        .then(function () {
             //出商店
             return boy.outShop(2000);
         })

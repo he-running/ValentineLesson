@@ -172,8 +172,18 @@ function boyWalk() {
         return defer;
     }
 
+    //取花
+    function takeFlower() {
+        var defer = $.Deferred();
+        setTimeout(function () {
+            $boy.addClass('slowFlowerWalk');
+            defer.resolve();
+        },1000);
+        return defer;
+    }
 
-    //对外提供3个函数
+
+    //对外提供函数
     return {
         //开始走路
         walkTo: function (time, proportionX, proportionY) {
@@ -195,6 +205,10 @@ function boyWalk() {
         //走出商店
         outShop: function () {
             return walkOutShop.apply(null, arguments);
+        },
+        //取花
+        takeFlower: function () {
+            return takeFlower();
         }
     }
 }
