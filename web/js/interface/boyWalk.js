@@ -122,6 +122,57 @@ function boyWalk() {
         return (direction == 'x' ? visualWidth : visualHeight) * proportion;
     }
 
+    var instanceX;
+    //走进商店
+    function walkToShop(runTime) {
+        var defer = $.Deferred();
+        var doorObj = $('.door');
+        //门的坐标
+        var doorOffset = doorObj.offset();
+        var doorOffsetLeft = doorOffset.left;
+        //男孩的坐标
+        var boyOffset = $boy.offset();
+        var boyOffsetLeft = boyOffset.left;
+
+        //当前需要移动的坐标
+        instanceX = (doorOffsetLeft + doorObj.width() / 2)
+            - (boyOffsetLeft + $boy.width() / 2);
+
+        //开始走
+        var walkPlay = startRun({
+            transform: 'translateX(' + instanceX + 'px),scale(0.3,0.3)',
+            opacity: 0.1
+        }, 2000);
+        //走路完毕
+        walkPlay.done(function () {
+            $boy.css({
+                opacity: 0
+            });
+            defer.resolve();
+        });
+        return defer;
+    }
+
+    //走出商店
+    function walkOutShop(runTime) {
+        var defer = $.Deferred();
+        restoreWalk();
+        //开始走路
+        var walkPlay = startRun({
+            transform: 'translateX('+instanceX+'px),scale(1,1)',
+            opacity: 0.1
+        },runTime);
+        //走路完毕
+        walkPlay.done(function () {
+            $boy.css({
+                opacity: 1
+            });
+            defer.resolve();
+        });
+        return defer;
+    }
+
+
     //对外提供3个函数
     return {
         //开始走路
@@ -136,6 +187,14 @@ function boyWalk() {
         },
         setColor: function (value) {
             $boy.css('background-color', value);
+        },
+        //走进商店
+        toShop: function () {
+            return walkToShop.apply(null, arguments);
+        },
+        //走出商店
+        outShop: function () {
+            return walkOutShop.apply(null, arguments);
         }
     }
 }

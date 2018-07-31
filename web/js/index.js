@@ -108,6 +108,7 @@ var lamp = {
     }
 };
 
+/*
 $('button:first').click(function () {
     //开门开灯
     openDoor().then(function () {
@@ -120,4 +121,41 @@ $('button:last').click(function () {
     closeDoor().then(function () {
         lamp.dark();
     });
-});
+});*/
+
+var startRun = function startRun() {
+    boy.walkTo(2000,0.5)
+        .then(function () {
+            //暂停走路
+            boy.stopWalk();
+        })
+        .then(function () {
+            //开门
+            return openDoor();
+        })
+        .then(function () {
+            //开灯
+            lamp.bright();
+        })
+        .then(function () {
+            //进商店
+            return boy.toShop(2000);
+        })
+        .then(function () {
+            //出商店
+            return boy.outShop(2000);
+        })
+        .then(function () {
+            //关门
+            return closeDoor();
+        })
+        .then(function () {
+            //关灯
+            lamp.dark();
+        });
+};
+
+$('button:first').click(startRun);
+
+
+
