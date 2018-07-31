@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="frame/bootstrap-3.3.7/bootstrap.min.css">
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/pageA.css">
+    <link rel="stylesheet" href="css/pageB.css">
 </head>
 <body>
 
@@ -29,7 +30,19 @@
                 </div>
             </li>
             <!--第二幅画面-->
-            <li>页面2</li>
+            <li><!-- 背景图 -->
+                <div class="b_background"></div>
+                <div class="b_background_preload"></div>
+                <!-- 商店 -->
+                <div class="shop">
+                    <div class="door">
+                        <div class="door-left"></div>
+                        <div class="door-right"></div>
+                    </div>
+                    <!-- 灯 -->
+                    <div class="lamp"></div>
+                </div>
+            </li>
             <!--第三幅画面-->
             <li>页面3</li>
         </ul>
@@ -38,9 +51,11 @@
     </div>
 
     <div class="button">
-        <button class="btn-primary">开始</button>
+        <!--<button class="btn-primary">开始</button>-->
         <!--<button class="btn-info">暂停</button>-->
         <!--<button class="btn-default">恢复</button>-->
+        <button>开门</button>
+        <button>关门</button>
     </div>
 
 </body>

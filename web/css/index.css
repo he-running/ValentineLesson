@@ -28,9 +28,9 @@ ol, ul, li {
     position: relative;
 }
 
-li:nth-child(2) {
+/*li:nth-child(2) {
     background: #9bcd9b;
-}
+}*/
 
 li:nth-child(3) {
     background: yellow;

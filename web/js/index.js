@@ -15,9 +15,12 @@ function scrollTo(time, proportion) {
 
 
 /**********动画处理***********/
+swipe.scrollTo(container.width(),0);
+
 var boy = boyWalk();//男孩走路
 
 //开始
+/*
 $('button:first').click(function () {
 
     //太阳公转
@@ -53,4 +56,51 @@ $('button:first').click(function () {
         //     boy.setColor('blue');
         //     console.log('第3次完成:' + new Date());
         // });
+});*/
+
+/*商店门动画*/
+function doorAction(left, right, time) {
+    var door = $('.door');
+    var doorLeft = $('.door-left');
+    var doorRight = $('.door-right');
+    var defer = $.Deferred();
+    var count = 2;
+    //等待开门完成
+    var complete = function () {
+        if (count == 1) {
+            console.log('complete: '+count);
+            defer.resolve();
+            return;
+        }
+        console.log('disComplete: '+count);
+        count--;
+    };
+
+    doorLeft.transition({
+        'left': left
+    }, time, complete);
+
+    doorRight.transition({
+        'left': right
+    }, time, complete);
+
+    return defer;
+}
+
+//开门
+function openDoor() {
+    return doorAction('-50%', '100%', 2000);
+}
+
+//关门
+function closeDoor() {
+    return doorAction('0%', '50%', 2000);
+}
+
+$('button:first').click(function () {
+    openDoor();
+});
+
+$('button:last').click(function () {
+    closeDoor();
 });

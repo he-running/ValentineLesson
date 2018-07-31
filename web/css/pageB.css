@@ -34,7 +34,7 @@
     left: 58.5%;
 }
 
-.door-left, door-right {
+.door-left, .door-right {
     width: 50%;
     height: 100%;
     position: absolute;
@@ -42,13 +42,13 @@
 
 .door-left {
     left: 0%;
-    background: url("http://img.mukewang.com/55ade1140001050d00910231.png");
+    background: url(http://img.mukewang.com/55ade1140001050d00910231.png);
     background-size: 100% 100%;
 }
 
 .door-right {
     left: 50%;
-    background: url("http://img.mukewang.com/55ade12100019f5b00910231.png");
+    background: url(http://img.mukewang.com/55ade12100019f5b00910231.png);
     background-size: 100% 100%;
 }
 

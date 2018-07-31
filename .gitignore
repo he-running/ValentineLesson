@@ -2,3 +2,9 @@
 /web/frame
 /out
 /*.iml
+/web/tpls/test.html
+/web/tpls/test2.html
+/web/tpls/test3.html
+/web/tpls/test4.html
+/web/tpls/testFit.html
+/web/tpls/testJumbotron.html
