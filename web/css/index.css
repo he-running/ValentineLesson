@@ -32,9 +32,9 @@ ol, ul, li {
     background: #9bcd9b;
 }*/
 
-li:nth-child(3) {
+/*li:nth-child(3) {
     background: yellow;
-}
+}*/
 
 a {
     position: absolute;

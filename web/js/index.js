@@ -7,18 +7,21 @@ var container = $('#content');
 //初始化滑行动画
 var swipe = swipeAnim(container);
 
+var visualWidth = container.width();
+
 // 页面滚动到指定的位置
 function scrollTo(time, proportion) {
-    var distX = container.width() * proportion;
+    var distX = visualWidth * proportion;
     swipe.scrollTo(distX, time);
 }
 
 
 /**********动画处理***********/
-swipe.scrollTo(container.width(), 0);
+// swipe.scrollTo(container.width(), 0);
 
-var boy = boyWalk();//男孩走路
+// var boy = boyWalk();//男孩走路
 
+/***第二个页面相关***/
 //开始
 /*
  $('button:first').click(function () {
@@ -59,7 +62,7 @@ var boy = boyWalk();//男孩走路
  });*/
 
 /*商店门动画*/
-function doorAction(left, right, time) {
+/*function doorAction(left, right, time) {
     var door = $('.door');
     var doorLeft = $('.door-left');
     var doorRight = $('.door-right');
@@ -85,20 +88,20 @@ function doorAction(left, right, time) {
     }, time, complete);
 
     return defer;
-}
+}*/
 
 //开门
-function openDoor() {
+/*function openDoor() {
     return doorAction('-50%', '100%', 2000);
-}
+}*/
 
 //关门
-function closeDoor() {
+/*function closeDoor() {
     return doorAction('0%', '50%', 2000);
-}
+}*/
 
 /*灯动画*/
-var lamp = {
+/*var lamp = {
     elem: $('.b_background'),
     bright: function () {
         this.elem.addClass('lamp-bright');
@@ -106,7 +109,7 @@ var lamp = {
     dark: function () {
         this.elem.removeClass('lamp-bright');
     }
-};
+};*/
 
 /*
  $('button:first').click(function () {
@@ -124,7 +127,7 @@ var lamp = {
  });*/
 
 /*飞鸟*/
-var bird = {
+/*var bird = {
     elem: $('.bird'),
     fly: function () {
         this.elem.addClass('birdFly');
@@ -132,10 +135,10 @@ var bird = {
             right: container.width()
         }, 15000,'linear');
     }
-};
+};*/
 
 
-var startRun = function startRun() {
+/*var startRun = function startRun() {
     boy.walkTo(2000, 0.5)
         .then(function () {
             //暂停走路
@@ -173,9 +176,41 @@ var startRun = function startRun() {
             //关灯
             lamp.dark();
         });
+};*/
+
+/***第三页面***/
+//获取数据
+var getValue = function (className) {
+    var elem = $(''+className+'');
+    //走路的路线坐标
+    return {
+        height: elem.height(),
+        top: elem.position().top
+    };
 };
 
-$('button:first').click(startRun);
+//桥的Y轴
+var bridgeY = function () {
+    var data = getValue('.c_background_middle');
+    return data.top;
+}();
 
+//移动到第三页面
+swipe.scrollTo(visualWidth*2, 0);
 
+//女孩
+var girl = {
+    elem: $('.girl'),
+    getHeight: function () {
+        return this.elem.height();
+    },
+    setOffset: function () {
+        this.elem.css({
+            left: visualWidth/2,
+            top:bridgeY-this.getHeight()
+        })
+    }
+};
 
+//修正女孩位置
+girl.setOffset();

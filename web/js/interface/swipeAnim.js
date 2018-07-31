@@ -9,8 +9,8 @@ function swipeAnim(container) {
     //第一个子节点
     var element = container.find(':first');
 
-    //li页面数量
-    var slides = element.find('li');
+    // li页面数量
+    var slides = element.find(">");
 
     //获取容器尺寸
     var width = container.width();
