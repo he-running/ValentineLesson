@@ -97,10 +97,27 @@ function closeDoor() {
     return doorAction('0%', '50%', 2000);
 }
 
+/*灯动画*/
+var lamp = {
+    elem: $('.b_background'),
+    bright: function () {
+        this.elem.addClass('lamp-bright');
+    },
+    dark: function () {
+        this.elem.removeClass('lamp-bright');
+    }
+};
+
 $('button:first').click(function () {
-    openDoor();
+    //开门开灯
+    openDoor().then(function () {
+        lamp.bright();
+    });
 });
 
 $('button:last').click(function () {
-    closeDoor();
+    //关门关灯
+    closeDoor().then(function () {
+        lamp.dark();
+    });
 });
