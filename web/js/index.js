@@ -226,6 +226,30 @@ var girl = {
 //修正女孩位置
 girl.setOffset();
 
+//动画结束事件
+var animationEnd = function () {
+    var explorer = navigator.userAgent;
+    if (~explorer.indexOf('WebKit')) {
+        // Chrome, Safari 和 Opera
+        return 'webkitAnimationEnd';
+    }
+    return 'animationEnd';
+}();
+
+
+//logo动画
+var logo = {
+    elem: $('.logo'),
+    run: function () {
+        this.elem.addClass('logoLightSpeedIn')
+            .on(animationEnd, function () {
+                //off() 方法通常用于移除通过 on() 方法添加的事件处理程序。
+                $(this).addClass('logoShake').off();
+            });
+    }
+};
+
+
 //男孩带花
 boy.setFlowerWalk();
 
@@ -251,5 +275,15 @@ $('button:first').click(function () {
        .then(function () {
            //已走到面前,还原走路状态
            boy.resetOrigin();
+       })
+       .then(function () {
+           //延时转身
+           setTimeout(function () {
+              girl.rotate();
+              boy.rotate(function () {
+                  //回调函数
+                  logo.run();
+              });
+           }, 1000);
        })
 });

@@ -222,6 +222,18 @@ function boyWalk() {
         },
         setFlowerWalk: function () {
             $boy.addClass('slowFlowerWalk');
+        },
+        //转身动作,传入一个回调函数
+        rotate: function (callBack) {
+            restoreWalk();
+            $boy.addClass('boy-rotate');
+            if (callBack) {
+                $boy.on(animationEnd, function () {
+                    //监听转身完毕
+                    callBack();
+                    $(this).off();
+                });
+            }
         }
     }
 }
