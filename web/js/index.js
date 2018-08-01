@@ -318,6 +318,28 @@ function snowFlake() {
     }, 200);
 }
 
+/*背景音乐*/
+var audioConfig = {
+    enable: true,//是否开启音乐
+    // playUrl: '../static/music/happy.wav', //错误的路径写法，相对于web/。。。才正确
+    playUrl: 'static/music/happy.wav', // 正常播放地址
+    cycleUrl: 'static/music/circulation.wav' // 正常循环播放地址
+};
+
+function html5Audio(url, isLoop) {
+    var audio = new Audio(url);
+    audio.autoplay = true;
+    audio.loop = isLoop || false;
+    audio.play();
+    return {
+        end: function (callBack) {
+            audio.addEventListener('ended', function () {
+                callBack();
+            }, false);
+        }
+    }
+}
+
 
 
 
@@ -326,6 +348,12 @@ boy.setFlowerWalk();
 
 //男孩走路
 $('button:first').click(function () {
+    //音乐响起
+    var music = html5Audio(audioConfig.playUrl);
+    music.end(function () {
+        html5Audio(audioConfig.cycleUrl,true);
+    });
+
     //第一段路，走到桥底
    boy.walkTo(2000,0.15)
        .then(function () {
