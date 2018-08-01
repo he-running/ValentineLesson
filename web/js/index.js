@@ -287,7 +287,7 @@ function snowFlake() {
         //运动轨迹
         var startPositionLeft = Math.random() * visualWidth - 100,
             startOpacity = 1,
-            endPositionTop = visualHeight - 40,
+            endPositionTop = visualHeight - 40,//减去花瓣的高度40
             endPositionLeft = startPositionLeft -100 + Math.random() * 500,
             duration = visualHeight * 10 +Math.random() * 5000;
 
@@ -295,7 +295,7 @@ function snowFlake() {
         var randomStart = Math.random();
         randomStart = randomStart < 0.5 ? startOpacity : randomStart;
 
-        //创建一个飘花
+        //创建一个飘花元素
         var flake = createSnowBox();
 
         //设计起点位置
