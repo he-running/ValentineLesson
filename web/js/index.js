@@ -16,13 +16,10 @@ function scrollTo(time, proportion) {
     swipe.scrollTo(distX, time);
 }
 
-
-/**********动画处理***********/
-// swipe.scrollTo(container.width(), 0);
-
 var boy = boyWalk();//男孩走路
+/**********分别为3个页面的动画处理***********/
 
-/***第二个页面相关***/
+/*第一个页面相关*/
 //开始
 /*
  $('button:first').click(function () {
@@ -62,8 +59,11 @@ var boy = boyWalk();//男孩走路
  // });
  });*/
 
+/***第二个页面相关***/
+// swipe.scrollTo(container.width(), 0);
+
 /*商店门动画*/
-/*function doorAction(left, right, time) {
+function doorAction(left, right, time) {
     var door = $('.door');
     var doorLeft = $('.door-left');
     var doorRight = $('.door-right');
@@ -89,20 +89,20 @@ var boy = boyWalk();//男孩走路
     }, time, complete);
 
     return defer;
-}*/
+}
 
 //开门
-/*function openDoor() {
+function openDoor() {
     return doorAction('-50%', '100%', 2000);
-}*/
+}
 
 //关门
-/*function closeDoor() {
+function closeDoor() {
     return doorAction('0%', '50%', 2000);
-}*/
+}
 
 /*灯动画*/
-/*var lamp = {
+var lamp = {
     elem: $('.b_background'),
     bright: function () {
         this.elem.addClass('lamp-bright');
@@ -110,7 +110,7 @@ var boy = boyWalk();//男孩走路
     dark: function () {
         this.elem.removeClass('lamp-bright');
     }
-};*/
+};
 
 /*
  $('button:first').click(function () {
@@ -128,7 +128,7 @@ var boy = boyWalk();//男孩走路
  });*/
 
 /*飞鸟*/
-/*var bird = {
+var bird = {
     elem: $('.bird'),
     fly: function () {
         this.elem.addClass('birdFly');
@@ -136,7 +136,7 @@ var boy = boyWalk();//男孩走路
             right: container.width()
         }, 15000,'linear');
     }
-};*/
+};
 
 
 /*var startRun = function startRun() {
@@ -179,6 +179,7 @@ var boy = boyWalk();//男孩走路
         });
 };*/
 
+
 /***第三页面***/
 //获取数据
 var getValue = function (className) {
@@ -197,7 +198,7 @@ var bridgeY = function () {
 }();
 
 //移动到第三页面
-swipe.scrollTo(visualWidth*2, 0);
+// swipe.scrollTo(visualWidth*2, 0);
 
 //女孩
 var girl = {
@@ -224,7 +225,7 @@ var girl = {
 };
 
 //修正女孩位置
-girl.setOffset();
+// girl.setOffset();
 
 //动画结束事件
 var animationEnd = function () {
@@ -336,18 +337,18 @@ function html5Audio(url, isLoop) {
             audio.addEventListener('ended', function () {
                 callBack();
             }, false);
+        },
+        pause:function () {
+            audio.pause();
         }
     }
 }
 
-
-
-
 //男孩带花
-boy.setFlowerWalk();
+// boy.setFlowerWalk();
 
 //男孩走路
-$('button:first').click(function () {
+/*$('button:first').click(function () {
     //音乐响起
     var music = html5Audio(audioConfig.playUrl);
     music.end(function () {
@@ -389,4 +390,123 @@ $('button:first').click(function () {
            //飘花
            snowFlake();
        })
+});*/
+
+/*整合3个部分的代码如下*/
+$('button:first').click(function () {
+    //音乐
+    var music1 = html5Audio(audioConfig.playUrl);
+
+    /*第1个页面部分*/
+    //太阳公转
+    $("#sun").addClass('rotation');
+
+    //云飘
+    $('.cloud:first').addClass('cloud1Anim');
+    $('.cloud:last').addClass('cloud2Anim');
+
+    //第一次走路
+    boy.walkTo(2000, 0.2)
+        .then(function () {
+            //第一次完成，页面开始慢慢滚动到第2页面
+            scrollTo(5000, 1);
+        })
+        //第二次走路
+        .then(function () {
+            return boy.walkTo(4000, 0.4);
+        })
+        /*第2个页面部分*/
+        .then(function () {
+           return boy.walkTo(3000, 0.5);
+        })
+        .then(function () {
+            //暂停走路
+            boy.stopWalk();
+        })
+        .then(function () {
+            //开门
+            return openDoor();
+        })
+        .then(function () {
+            //开灯
+            lamp.bright();
+        })
+        .then(function () {
+            //进商店
+            return boy.toShop(2000);
+        })
+        .then(function () {
+            //取花
+            return boy.takeFlower();
+        })
+        .then(function () {
+            //飞鸟
+            bird.fly();
+        })
+        .then(function () {
+            //出商店
+            return boy.outShop(2000);
+        })
+        .then(function () {
+            //先停止走路
+            boy.stopWalk();
+            //关门
+            closeDoor();
+            //关灯
+            lamp.dark();
+            //这一段不使用return，使下面代码同步执行
+        })
+        .then(function () {
+            //开始慢慢滚动到第3页面
+            scrollTo(5000, 2);
+            //在页面滚动同时，再走一段路，然后才进入第3页面
+            return boy.walkTo(2000,0.3);
+        })
+        /*第3页面相关*/
+        .then(function () {
+            //男孩带花
+            boy.setFlowerWalk();
+            girl.setOffset();
+        })
+        //正式走入第3页面
+        .then(function () {
+            return boy.walkTo(2000,0.15)
+        })
+        .then(function () {
+            //第二段路，走到桥上
+            return boy.walkTo(2000, 0.25,
+                (bridgeY-girl.getHeight())/visualHeight);
+        })
+        .then(function () {
+            //走近女生
+            var girlLeft = girl.getOffset().left;
+            var boyWidth = boy.getWidth();
+            var girlWidthPercent = girl.getWidth()/5;
+            var proportionX = (girlLeft - boyWidth
+                + girlWidthPercent)/visualWidth;
+
+            return boy.walkTo(1500,proportionX);
+        })
+        .then(function () {
+            //已走到面前,还原走路状态
+            boy.resetOrigin();
+        })
+        .then(function () {
+            //延时转身
+            setTimeout(function () {
+                girl.rotate();
+                boy.rotate(function () {
+                    //回调函数
+                    logo.run();
+                });
+            }, 1000);
+            //停背景音乐1，开2
+            music1.pause();
+            html5Audio(audioConfig.cycleUrl,true);
+        })
+        .then(function () {
+            //飘花
+            snowFlake();
+        })
 });
+
