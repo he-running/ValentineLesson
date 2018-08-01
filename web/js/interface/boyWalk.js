@@ -209,6 +209,19 @@ function boyWalk() {
         //取花
         takeFlower: function () {
             return takeFlower();
+        },
+        //获取男孩的宽度
+        getWidth: function () {
+            return $boy.width();
+        },
+        //复位初始状态
+        resetOrigin: function () {
+            this.stopWalk();
+            $boy.removeClass('slowWalk slowFlowerWalk')
+                .addClass('boyOrigin');
+        },
+        setFlowerWalk: function () {
+            $boy.addClass('slowFlowerWalk');
         }
     }
 }

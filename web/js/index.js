@@ -8,6 +8,7 @@ var container = $('#content');
 var swipe = swipeAnim(container);
 
 var visualWidth = container.width();
+var visualHeight = container.height();
 
 // 页面滚动到指定的位置
 function scrollTo(time, proportion) {
@@ -19,7 +20,7 @@ function scrollTo(time, proportion) {
 /**********动画处理***********/
 // swipe.scrollTo(container.width(), 0);
 
-// var boy = boyWalk();//男孩走路
+var boy = boyWalk();//男孩走路
 
 /***第二个页面相关***/
 //开始
@@ -209,8 +210,46 @@ var girl = {
             left: visualWidth/2,
             top:bridgeY-this.getHeight()
         })
+    },
+    //转身动作
+    rotate: function () {
+        this.elem.addClass('girl-rotate');
+    },
+    getOffset: function () {
+        return this.elem.offset();
+    },
+    getWidth: function () {
+        return this.elem.width();
     }
 };
 
 //修正女孩位置
 girl.setOffset();
+
+//男孩带花
+boy.setFlowerWalk();
+
+//男孩走路
+$('button:first').click(function () {
+    //第一段路，走到桥底
+   boy.walkTo(2000,0.15)
+       .then(function () {
+           //第二段路，走到桥上
+           return boy.walkTo(1500, 0.25,
+               (bridgeY-girl.getHeight())/visualHeight);
+       })
+       .then(function () {
+           //走近女生
+           var girlLeft = girl.getOffset().left;
+           var boyWidth = boy.getWidth();
+           var girlWidthPercent = girl.getWidth()/5;
+           var proportionX = (girlLeft - boyWidth
+            + girlWidthPercent)/visualWidth;
+
+           return boy.walkTo(1500,proportionX);
+       })
+       .then(function () {
+           //已走到面前,还原走路状态
+           boy.resetOrigin();
+       })
+});
